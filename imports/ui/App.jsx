@@ -13,19 +13,15 @@ export const App = () => {
     <Routes>
       <Route
           path="/"
-          element={user ? <Navigate to="/welcome" /> : <Navigate to="/login" />}
+          element={<Welcome />}
         />
         <Route
           path="/login"
-          element={!user ? <LoginForm /> : <Navigate to="/welcome" />}
-        />
-        <Route
-          path="/welcome"
-          element={user ? <Welcome /> : <Navigate to="/login" />}
+          element={!user ? <LoginForm /> : <Navigate to="/tasks" />}
         />
         <Route
           path="/tasks"
-          element={user ? <Task /> : <Navigate to="/login" />}
+          element={user ? <Task /> : <Navigate to="/welcome" />}
         />
       </Routes>
   );
