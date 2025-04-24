@@ -21,7 +21,7 @@ export const App = () => {
         />
         <Route
           path="/tasks"
-          element={user ? <Task /> : <Navigate to="/welcome" />}
+          element={user ? <Task /> : <Navigate to="/" />}
         />
       </Routes>
   );
