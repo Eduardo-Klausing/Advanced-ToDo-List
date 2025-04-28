@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import List from '@mui/material/List';
-
+import ToDoList from './ToDoList';
 
 export const Task = () => {
   const navigate = useNavigate();
@@ -9,6 +8,7 @@ export const Task = () => {
   return (
     <div>
       <h1>Lista de Tarefas</h1>
+        <ToDoList />
       <button onClick={() => Meteor.logout()}>Logout</button>
     </div>
   );
