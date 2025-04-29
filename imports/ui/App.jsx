@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { LoginForm } from './LoginForm';
 import { Welcome } from './Welcome';
 import { Task } from './Task';
+import { Edicao } from './Edicao';
 
 
 export const App = () => {
@@ -22,6 +23,10 @@ export const App = () => {
         <Route
           path="/tasks"
           element={user ? <Task /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/edicao"
+          element={<Edicao />}
         />
       </Routes>
   );
