@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { LoginForm } from './LoginForm';
 import { Welcome } from './Welcome';
 import { Task } from './Task';
 import { Edicao } from './Edicao';
+import { Adicao } from './Adicao';
 
 
 export const App = () => {
@@ -27,6 +28,10 @@ export const App = () => {
         <Route
           path="/edicao"
           element={<Edicao />}
+        />
+        <Route
+          path="/adicao"
+          element={<Adicao />} 
         />
       </Routes>
   );

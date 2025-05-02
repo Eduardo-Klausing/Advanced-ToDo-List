@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import '../imports/api/tasks';
+import '../imports/api/server/publications';
 
 const SEED_USERNAME = 'meteorite';
 const SEED_PASSWORD = 'password';
