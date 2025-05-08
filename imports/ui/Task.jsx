@@ -56,7 +56,7 @@ export const Task = () => {
 
   const handleEdit = () => {
     if (selectedTaskId) {
-      navigate(`/edicao/${selectedTaskId}`);
+      navigate('/edicao/',  { state: { origem: 'Editar Tarefa' } });
     }
     handleClose();
   };
@@ -92,7 +92,7 @@ export const Task = () => {
             >
               <ListItemText 
                 primary={task.title} 
-                secondary={`${task.user} - ${task.situacao}`} 
+                secondary={task.user} 
               />
             </ListItem>
           ))

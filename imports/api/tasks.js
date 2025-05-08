@@ -33,14 +33,26 @@ Meteor.methods({
     return await Tasks.removeAsync(taskId);
   },
 
-  async 'tasks.update'(taskId, newTitle) {
-    check(taskId, String);
-    check(newTitle, String);
-    return await Tasks.updateAsync(taskId, {
-      $set: { 
-        title: newTitle,
-        updatedAt: new Date()
-      },
-    });
+  async 'tasks.update'(taskId, updatedTask) {
+    try {
+      check(taskId, String);
+      check(updatedTask, {
+        title: String,
+        description: String,
+        dueDate: String,
+        situacao: String,
+        user: String,
+      });
+  
+      return await Tasks.updateAsync(taskId, {
+        $set: {
+          ...updatedTask,
+          updatedAt: new Date(),
+        },
+      });
+    } catch (error) {
+      throw new Meteor.Error('update-failed', error.message);
+    }
   },
+  
 });
