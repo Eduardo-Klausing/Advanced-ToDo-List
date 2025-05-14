@@ -56,7 +56,7 @@ export const Task = () => {
 
   const handleEdit = () => {
     if (selectedTaskId) {
-      navigate('/edicao/',  { state: { origem: 'Editar Tarefa' } });
+      navigate(`/edicao/${selectedTaskId}`,  { state: { origem: 'Editar Tarefa' } });
     }
     handleClose();
   };

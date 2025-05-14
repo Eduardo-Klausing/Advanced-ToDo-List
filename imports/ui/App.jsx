@@ -30,6 +30,10 @@ export const App = () => {
           element={<Edicao />}
         />
         <Route
+          path="/edicao/:taskId"
+          element={<Edicao />}
+        />
+        <Route
           path="/adicao"
           element={<Adicao />} 
         />
