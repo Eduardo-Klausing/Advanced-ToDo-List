@@ -70,6 +70,25 @@ export const Task = () => {
     }
   };
 
+  const handleConclude = () => {
+      if(selectedTaskId) {
+      Meteor.call('tasks.updateStatus', selectedTaskId, 'Concluída', (error) => {
+        if (error) alert(error.message);  
+      });
+      handleClose();
+    }
+  }
+
+  const handleRegister = () => {
+      if(selectedTaskId) {
+      Meteor.call('tasks.updateStatus', selectedTaskId, 'Cadastrada', (error) => {
+        if (error) alert(error.message);  
+      });
+      handleClose();
+    }
+  }
+
+
   const handleAdd = () => {
     navigate('/adicao');
   };
@@ -120,8 +139,8 @@ export const Task = () => {
         <MenuItem onClick={handleEdit}>Editar</MenuItem>
         <MenuItem onClick={handleRemove}>Remover</MenuItem>
         <MenuItem onClick={handleOngoing}>Colocar em andamento</MenuItem>
-        <MenuItem >Concluir</MenuItem>
-        <MenuItem >Colocar como Cadastrada</MenuItem>
+        <MenuItem onClick={handleConclude}>Concluir</MenuItem>
+        <MenuItem onClick={handleRegister}>Colocar como Cadastrada</MenuItem>
       </Menu>
 
       <Fab
