@@ -33,6 +33,15 @@ Meteor.methods({
     return await Tasks.removeAsync(taskId);
   },
 
+  async 'tasks.updateStatus'(taskId, newStatus){
+    check(taskId, String);
+    check(newStatus, String);
+
+    return await Tasks.updateAsync(taskId, {
+      $set: { situacao: newStatus }
+    });
+  },
+
   async 'tasks.update'(taskId, updatedTask) {
     try {
       check(taskId, String);

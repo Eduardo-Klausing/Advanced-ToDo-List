@@ -61,6 +61,15 @@ export const Task = () => {
     handleClose();
   };
 
+  const handleOngoing = () => {
+    if(selectedTaskId) {
+      Meteor.call('tasks.updateStatus', selectedTaskId, 'Em andamento', (error) => {
+        if (error) alert(error.message);  
+      });
+      handleClose();
+    }
+  };
+
   const handleAdd = () => {
     navigate('/adicao');
   };
@@ -92,7 +101,7 @@ export const Task = () => {
             >
               <ListItemText 
                 primary={task.title} 
-                secondary={task.user} 
+                secondary={`${task.user} • Situação: ${task.situacao || 'Cadastrada'}`} 
               />
             </ListItem>
           ))
@@ -110,6 +119,9 @@ export const Task = () => {
       >
         <MenuItem onClick={handleEdit}>Editar</MenuItem>
         <MenuItem onClick={handleRemove}>Remover</MenuItem>
+        <MenuItem onClick={handleOngoing}>Colocar em andamento</MenuItem>
+        <MenuItem >Concluir</MenuItem>
+        <MenuItem >Colocar como Cadastrada</MenuItem>
       </Menu>
 
       <Fab
