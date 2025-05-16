@@ -13,6 +13,8 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { Tasks } from '../api/tasks';
 import { Box } from '@mui/material';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 export const Task = () => {
   const navigate = useNavigate();
@@ -121,6 +123,10 @@ export const Task = () => {
                 </IconButton>
               }
             >
+              <ListItemIcon>
+                <AssignmentIcon />
+              </ListItemIcon>
+
               <ListItemText 
                 primary={task.title} 
                 secondary={`${task.user} • Situação: ${task.situacao || 'Cadastrada'}`} 
