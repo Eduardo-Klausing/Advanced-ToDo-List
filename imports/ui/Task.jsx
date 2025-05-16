@@ -28,10 +28,13 @@ export const Task = () => {
       tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
       isLoading: false
     };
-  });
 
+  });
+  
+  
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
+  const selectedTask = tasks.find(t => t._id === selectedTaskId);
 
   const handleMenuClick = (event, taskId) => {
     setAnchorEl(event.currentTarget);
@@ -138,9 +141,25 @@ export const Task = () => {
       >
         <MenuItem onClick={handleEdit}>Editar</MenuItem>
         <MenuItem onClick={handleRemove}>Remover</MenuItem>
-        <MenuItem onClick={handleOngoing}>Colocar em andamento</MenuItem>
-        <MenuItem onClick={handleConclude}>Concluir</MenuItem>
-        <MenuItem onClick={handleRegister}>Colocar como Cadastrada</MenuItem>
+
+        {selectedTask && selectedTask.situacao === 'Cadastrada' && (
+          // Caso 1: cadastrada → só “Colocar em andamento”
+          <MenuItem onClick={handleOngoing}>Colocar em andamento</MenuItem>
+        )}
+
+        {selectedTask && selectedTask.situacao === 'Em andamento' && ( 
+          // Caso 2: em andamento → “Concluir” e “Colocar como Cadastrada”
+          <>
+            <MenuItem onClick={handleConclude}>Concluir</MenuItem>
+            <MenuItem onClick={handleRegister}>Colocar como Cadastrada</MenuItem>
+          </>
+        )}
+
+        {selectedTask && selectedTask.situacao === 'Concluída' && (
+          // Caso 3: concluída → só “Colocar como Cadastrada”
+              <MenuItem onClick={handleRegister}>Colocar como Cadastrada</MenuItem>
+        )}
+
       </Menu>
 
       <Fab
