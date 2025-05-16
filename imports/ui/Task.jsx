@@ -1,6 +1,6 @@
+import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
-import { Meteor } from 'meteor/meteor';
 import { useNavigate } from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -18,6 +18,9 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 
 export const Task = () => {
   const navigate = useNavigate();
+
+  const user = useTracker(() => Meteor.user(), []);
+  const username = user?.username;
 
   const { tasks, isLoading } = useTracker(() => {
     const handle = Meteor.subscribe('tasks');
@@ -117,11 +120,16 @@ export const Task = () => {
                 borderRadius: 1,
                 boxShadow: 1
               }}
-              secondaryAction={
-                <IconButton onClick={(e) => handleMenuClick(e, task._id)}>
-                  <MoreVertIcon />
-                </IconButton>
-              }
+           secondaryAction={
+             // só mostra o menu se o username bater com task.user
+             username === task.user
+               ? (
+                   <IconButton onClick={(e) => handleMenuClick(e, task._id)}>
+                     <MoreVertIcon />
+                   </IconButton>
+                 )
+               : null
+          }
             >
               <ListItemIcon>
                 <AssignmentIcon />

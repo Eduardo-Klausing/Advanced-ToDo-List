@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTracker } from 'meteor/react-meteor-data';

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { LoginForm } from './LoginForm';
