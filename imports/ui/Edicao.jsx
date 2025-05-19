@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTracker } from 'meteor/react-meteor-data';
-import { TextField, Button, CircularProgress, Box } from '@mui/material';
+import { FormControlLabel, Switch, TextField, Button, CircularProgress, Box } from '@mui/material';
 import { Tasks } from '/imports/api/tasks';
 
 export const Edicao = () => {
@@ -96,6 +96,13 @@ export const Edicao = () => {
           onChange={(e) => setDueDate(e.target.value)}
           required
         />
+        <FormControlLabel
+          control={
+            <Switch/>
+          }
+          label="Tarefa pessoal"
+        />
+                
         <Button variant="contained" type="submit">
           Salvar
         </Button>

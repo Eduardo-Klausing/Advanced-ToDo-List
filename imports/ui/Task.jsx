@@ -100,7 +100,7 @@ export const Task = () => {
   const handleAdd = () => {
     navigate('/adicao');
   };
-
+ 
   if (isLoading) {
     return <div>Carregando...</div>;
   }
