@@ -111,41 +111,44 @@ export const Task = () => {
 
       <List>
         {tasks && tasks.length > 0 ? (
-          tasks.map(task => (
-            <ListItem
-              key={task._id}
-              sx={{ 
-                bgcolor: 'background.paper',
-                mb: 1,
-                borderRadius: 1,
-                boxShadow: 1
-              }}
-           secondaryAction={
-             // só mostra o menu se o username bater com task.user
-             username === task.user
-               ? (
-                   <IconButton onClick={(e) => handleMenuClick(e, task._id)}>
-                     <MoreVertIcon />
-                   </IconButton>
-                 )
-               : null
-          }
-            >
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
+          tasks
+            .filter(task => !task.pessoal || task.user === username)
+            .map(task => (
+              <ListItem
+                key={task._id}
+                sx={{ 
+                  bgcolor: 'background.paper',
+                  mb: 1,
+                  borderRadius: 1,
+                  boxShadow: 1
+                }}
+            secondaryAction={
+              // só mostra o menu se o username bater com task.user
+              username === task.user
+                ? (
+                    <IconButton onClick={(e) => handleMenuClick(e, task._id)}>
+                      <MoreVertIcon />
+                    </IconButton>
+                  )
+                : null
+            }
+              >
+                <ListItemIcon>
+                  <AssignmentIcon />
+                </ListItemIcon>
 
               <ListItemText 
                 primary={task.title} 
-                secondary={`${task.user} • Situação: ${task.situacao || 'Cadastrada'}`} 
-              />
+                secondary={`${task.user}${task.pessoal ? ' (Tarefa pessoal)' : ''} • Situação: ${task.situacao || 'Cadastrada'}`} 
+                />
+              </ListItem>
+              
+            ))
+          ) : (
+            <ListItem>
+              <ListItemText primary="Nenhuma tarefa encontrada" />
             </ListItem>
-          ))
-        ) : (
-          <ListItem>
-            <ListItemText primary="Nenhuma tarefa encontrada" />
-          </ListItem>
-        )}
+          )}
       </List>
 
       <Menu

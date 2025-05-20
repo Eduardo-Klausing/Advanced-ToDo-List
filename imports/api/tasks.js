@@ -11,6 +11,7 @@ Meteor.methods({
         title: String,
         description: String,
         dueDate: String,     
+        pessoal: Boolean,
         situacao: String,
         user: String,
       });
@@ -49,6 +50,7 @@ Meteor.methods({
         title: String,
         description: String,
         dueDate: String,
+        pessoal: Boolean,
         situacao: String,
         user: String,
       });
