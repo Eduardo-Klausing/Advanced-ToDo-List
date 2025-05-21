@@ -7,6 +7,7 @@ import { Welcome } from './Welcome';
 import { Task } from './Task';
 import { Edicao } from './Edicao';
 import { Adicao } from './Adicao';
+import { Perfil } from './Perfil';
 
 
 export const App = () => {
@@ -37,6 +38,10 @@ export const App = () => {
         <Route
           path="/adicao"
           element={<Adicao />} 
+        />
+        <Route
+          path="/perfil"
+          element={<Perfil />}
         />
       </Routes>
   );

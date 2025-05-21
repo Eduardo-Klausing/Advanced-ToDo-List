@@ -100,6 +100,10 @@ export const Task = () => {
   const handleAdd = () => {
     navigate('/adicao');
   };
+
+  const handleUserProfile = () => {
+    navigate('/perfil');
+  };
  
   if (isLoading) {
     return <div>Carregando...</div>;
@@ -192,7 +196,8 @@ export const Task = () => {
         <AddIcon />
       </Fab>
 
-      <button onClick={() => Meteor.logout()}>Logout</button>
+      <button onClick={() => Meteor.logout()} style={{ marginRight: '8px' }}>Logout</button>
+      <button onClick={handleUserProfile}>Informações de usuário</button>
     </Box>
   );
 };
