@@ -1,2 +1,3 @@
 import 'imports/api/tasks';
-import 'imports/server/publications'
+import 'imports/api/users';
+import 'imports/server/publications';

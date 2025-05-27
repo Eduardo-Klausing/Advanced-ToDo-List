@@ -27,6 +27,7 @@ export const Edicao = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
+  
 
   // Quando a subscription ficar pronta e a task existir, preenche
   useEffect(() => {
@@ -53,7 +54,6 @@ export const Edicao = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     Meteor.call(
       'tasks.update',
       taskId,
@@ -63,6 +63,7 @@ export const Edicao = () => {
         dueDate,
         situacao: 'Cadastrada',
         user: username,
+        pessoal: false,
       },
       (err) => {
         if (err) {
@@ -77,7 +78,7 @@ export const Edicao = () => {
   return (
     <Box maxWidth={500} mx="auto" p={2}>
       <h2>Editar Tarefa</h2>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <form onSubmit={(e) => handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <TextField
           label="Nome"
           value={title}

@@ -102,7 +102,7 @@ export const Task = () => {
   };
 
   const handleUserProfile = () => {
-    navigate('/perfil');
+    navigate('/perfil/${}');
   };
  
   if (isLoading) {

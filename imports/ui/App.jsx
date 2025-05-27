@@ -40,7 +40,7 @@ export const App = () => {
           element={<Adicao />} 
         />
         <Route
-          path="/perfil"
+          path="/perfil/:userId"
           element={<Perfil />}
         />
       </Routes>
