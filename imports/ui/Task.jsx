@@ -16,11 +16,11 @@ import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import ListItemButton from '@mui/material/ListItemButton';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { Tasks } from '../api/tasks';
 import { Box } from '@mui/material';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { Link } from 'react-router-dom';
 
 export const Task = () => {
   const navigate = useNavigate();
@@ -129,28 +129,22 @@ export const Task = () => {
     const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/tasks">
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary="Lista de Tarefas"/>
             </ListItemButton>
           </ListItem>
-        ))}
-      </List>
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to={`/perfil/${currentUserId}`}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary="Editar Perfil"/>
             </ListItemButton>
           </ListItem>
-        ))}
       </List>
     </Box>
   );
