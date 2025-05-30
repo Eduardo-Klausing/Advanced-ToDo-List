@@ -21,6 +21,10 @@ export const Task = () => {
 
   const user = useTracker(() => Meteor.user(), []);
   const username = user?.username;
+  
+  const currentUserId = useTracker(() => {
+    return Meteor.userId();
+  });
 
   const { tasks, isLoading } = useTracker(() => {
     const handle = Meteor.subscribe('tasks');
@@ -39,6 +43,7 @@ export const Task = () => {
   
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
+
   const selectedTask = tasks.find(t => t._id === selectedTaskId);
 
   const handleMenuClick = (event, taskId) => {
@@ -58,13 +63,6 @@ export const Task = () => {
           alert(error.message);
         }
       });
-    }
-    handleClose();
-  };
-
-  const handleEdit = () => {
-    if (selectedTaskId) {
-      navigate(`/edicao/${selectedTaskId}`,  { state: { origem: 'Editar Tarefa' } });
     }
     handleClose();
   };
@@ -101,8 +99,15 @@ export const Task = () => {
     navigate('/adicao');
   };
 
+  const handleEdit = () => {
+    if (selectedTaskId) {
+      navigate(`/edicao/${selectedTaskId}`,  { state: { origem: 'Editar Tarefa' } });
+    }
+  handleClose();
+};
+
   const handleUserProfile = () => {
-    navigate('/perfil/${}');
+    navigate(`/perfil/${currentUserId}`);
   };
  
   if (isLoading) {
