@@ -49,7 +49,7 @@ export const Task = () => {
   
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
-    const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -244,7 +244,6 @@ export const Task = () => {
         </Fab>
 
         <button onClick={() => Meteor.logout()} style={{ marginRight: '8px' }}>Logout</button>
-        <button onClick={handleUserProfile}>Informações de usuário</button>
       </Box>
     </div>
   );
