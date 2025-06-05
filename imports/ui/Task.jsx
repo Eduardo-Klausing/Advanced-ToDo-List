@@ -9,28 +9,20 @@ import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MenuIcon from '@mui/icons-material/Menu';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import Button from '@mui/material/Button';
-import Drawer from '@mui/material/Drawer';
-import ListItemButton from '@mui/material/ListItemButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import { Tasks } from '../api/tasks';
 import { Box } from '@mui/material';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import { Link } from 'react-router-dom';
+import { MyDrawer } from './Drawer';
+
 
 export const Task = () => {
   const navigate = useNavigate();
 
   const user = useTracker(() => Meteor.user(), []);
   const username = user?.username;
-  
-  const currentUserId = useTracker(() => {
-    return Meteor.userId();
-  });
 
   const { tasks, isLoading } = useTracker(() => {
     const handle = Meteor.subscribe('tasks');
@@ -49,12 +41,6 @@ export const Task = () => {
   
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
-  const [open, setOpen] = React.useState(false);
-
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
-
 
   const selectedTask = tasks.find(t => t._id === selectedTaskId);
 
@@ -117,46 +103,14 @@ export const Task = () => {
     }
   handleClose();
 };
-
-  const handleUserProfile = () => {
-    navigate(`/perfil/${currentUserId}`);
-  };
  
   if (isLoading) {
     return <div>Carregando...</div>;
   }
 
-    const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-      <List>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/tasks">
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Lista de Tarefas"/>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to={`/perfil/${currentUserId}`}>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Editar Perfil"/>
-            </ListItemButton>
-          </ListItem>
-      </List>
-    </Box>
-  );
-
   return (
     <div>
-      <Button onClick={toggleDrawer(true)}>
-        <MenuIcon />
-      </Button>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
-        {DrawerList}
-      </Drawer>
+      <MyDrawer />
       <Box sx={{ padding: 2 }}>
         <h1>Lista de Tarefas</h1>
 
