@@ -30,7 +30,17 @@ export const MyDrawer = () => {
         return Users.findOne({ userId });
     }, []);
 
-    const user = Users.findOne({ _id: Meteor.userId() });
+    const { user, isLoading } = useTracker(() => {
+    if (!currentUserId) {
+    return { user: null, isLoading: false };
+    }
+    const handle = Meteor.subscribe('usersProfile', currentUserId);
+    if (!handle.ready()) {
+    return { user: null, isLoading: true };
+    }
+    const u = Users.findOne({ _id: currentUserId });
+    return { user: u, isLoading: false };
+    }, [currentUserId]);
 
     const name = user?.name || 'Usuário';
     const email = user?.email || 'email@exemplo.com';
