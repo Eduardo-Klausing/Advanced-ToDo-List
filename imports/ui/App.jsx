@@ -8,6 +8,7 @@ import { Task } from './Task';
 import { Edicao } from './Edicao';
 import { Adicao } from './Adicao';
 import { Perfil } from './Perfil';
+import { Dashboard } from './Dashboard';
 
 
 export const App = () => {
@@ -21,7 +22,15 @@ export const App = () => {
         />
         <Route
           path="/login"
-          element={!user ? <LoginForm /> : <Navigate to="/tasks" />}
+          element={!user ? <LoginForm /> : <Navigate to="/dashboard" />}
+        />
+        <Route
+          path="/welcome"
+          element={<Welcome />}
+        />
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
         />
         <Route
           path="/tasks"
