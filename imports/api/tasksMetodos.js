@@ -20,7 +20,6 @@ Meteor.methods({
         createdAt: new Date(),
         owner: userId,
       };
-      
       return await Tasks.insertAsync(taskToInsert);
     } catch (error) {
       throw new Meteor.Error('insert-failed', error.message);

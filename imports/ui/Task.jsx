@@ -102,7 +102,11 @@ export const Task = () => {
       navigate(`/edicao/${selectedTaskId}`,  { state: { origem: 'Editar Tarefa' } });
     }
   handleClose();
-};
+  };
+
+  const navigateDashboard = () => {
+    navigate('/dashboard');
+  }
  
   if (isLoading) {
     return <div>Carregando...</div>;
@@ -196,6 +200,8 @@ export const Task = () => {
         >
           <AddIcon />
         </Fab>
+
+        <button onClick={navigateDashboard}>Voltar ao Dashboard</button>
 
         <button onClick={() => Meteor.logout()} style={{ marginRight: '8px' }}>Logout</button>
       </Box>

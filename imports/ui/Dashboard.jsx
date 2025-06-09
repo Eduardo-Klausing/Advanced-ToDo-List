@@ -1,34 +1,43 @@
 import React from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
-import { Tasks } from '../api/tasks'; // Ajuste o caminho conforme sua estrutura
+import { Tasks } from '../api/tasks'; 
 import { Box, Grid, Card, CardContent, Typography, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom'; // ou 'useHistory' para versões antigas do react-router
+import { useNavigate } from 'react-router-dom'; 
 
 export const Dashboard = () => {
   const navigate = useNavigate(); // para navegação entre páginas
 
-  const { total, andamento, concluidas } = useTracker(() => {
-    const allTasks = Tasks.find({}).fetch();
-    console.log(allTasks);
-    const total = allTasks.length;
-    const andamento = allTasks.filter(task => !task.completed).length;
-    const concluidas = allTasks.filter(task => task.completed).length;
+  const { cadastradas, andamento, concluidas } = useTracker(() => {
+    const handler = Meteor.subscribe('tasks'); // se inscreve
+    if (!handler.ready()) return { total: 0, andamento: 0, concluidas: 0 };
 
-    return { total, andamento, concluidas };
+    const allTasks = Tasks.find({}).fetch();
+    const currentUserId = Meteor.userId(); // ID do usuário logado
+
+    // Filtra: inclui apenas se (tarefa for do user) OU (tarefa NÃO for privada)
+    const userTasks = allTasks.filter(task => {
+      return task.owner === currentUserId || task.pessoal === false;
+    });
+
+    const cadastradas = userTasks.filter(task => task.situacao === 'Cadastrada').length;
+    const andamento = userTasks.filter(task => task.situacao === 'Em andamento').length;
+    const concluidas = userTasks.filter(task => task.situacao === 'Concluída').length;
+
+    return { cadastradas, andamento, concluidas };
   });
 
   const cards = [
-    { title: 'Tarefas Cadastradas', value: total },
+    { title: 'Tarefas Cadastradas', value: cadastradas },
     { title: 'Tarefas em Andamento', value: andamento },
     { title: 'Tarefas Concluídas', value: concluidas },
   ];
 
   return (
-    <Box sx={{ p: 4 }}>
+    <Box >
       <Typography variant="h4" gutterBottom>Dashboard de Tarefas</Typography>
       <Grid container spacing={3}>
         {cards.map((card, index) => (
-          <Grid item xs={12} sm={4} key={index}>
+          <Grid key={index}>
             <Card sx={{ minHeight: 100 }}>
               <CardContent>
                 <Typography variant="h6">{card.title}</Typography>
